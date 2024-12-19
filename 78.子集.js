@@ -1,7 +1,7 @@
 /*
- * @lc app=leetcode.cn id=46 lang=javascript
+ * @lc app=leetcode.cn id=78 lang=javascript
  *
- * [46] 全排列
+ * [78] 子集
  */
 
 // @lc code=start
@@ -9,20 +9,18 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var permute = function (nums) {
+var subsets = function (nums) {
   let res = [];
   let path = [];
   const backtracking = (nums) => {
-    if (path.length === nums.length) {
-      res.push([...path]);
+    res.push([...path]);
+    if (nums.length === 0) {
       return;
     }
     for (let i = 0; i < nums.length; i++) {
-      if (path.includes(nums[i])) {
-        continue;
-      }
       path.push(nums[i]);
-      backtracking(nums);
+      let next = nums.slice(i + 1);
+      backtracking(next);
       path.pop();
     }
   };
@@ -31,5 +29,4 @@ var permute = function (nums) {
 };
 // @lc code=end
 
-//
-console.log(JSON.stringify(permute([1, 2, 3])));
+console.log(JSON.stringify(subsets([1, 2, 3])));
