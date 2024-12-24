@@ -41,6 +41,8 @@ var maxSubArray = function (nums) {
     // console.log(preSub);
   }
   return maxSub;
+
+  
 };
 // @lc code=end
 
