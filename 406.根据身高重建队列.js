@@ -16,6 +16,7 @@ var reconstructQueue = function (people) {
     }
     return b[0] - a[0];
   });
+  // console.log(JSON.stringify(people))
   let queue = [];
   for (let i = 0; i < people.length; i++) {
     queue.splice(people[i][1], 0, people[i]);

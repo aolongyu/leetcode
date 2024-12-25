@@ -10,26 +10,26 @@
  * @return {boolean}
  */
 var lemonadeChange = function (bills) {
-  let lemonadeMap = {
-    5: 0,
-    10: 0,
-    20: 0,
-  };
+  let five = 0;
+  let ten = 0;
   for (let i = 0; i < bills.length; i++) {
-    lemonadeMap[bills[i]]++;
-    if (bills[i] === 10) {
-      if (lemonadeMap[5] >= 1) {
-        lemonadeMap[5]--;
-      } else {
+    let cur = bills[i];
+    if (cur === 5) {
+      five++;
+    }
+    if (cur === 10) {
+      if (five < 1) {
         return false;
       }
+      five--;
+      ten++;
     }
-    if (bills[i] === 20) {
-      if (lemonadeMap[10] >= 1 && lemonadeMap[5] >= 1) {
-        lemonadeMap[10]--;
-        lemonadeMap[5]--;
-      } else if (lemonadeMap[5] >= 3) {
-        lemonadeMap[5] -= 3;
+    if (cur === 20) {
+      if (ten >= 1 && five >= 1) {
+        five--;
+        ten--;
+      } else if (five >= 3) {
+        five -= 3;
       } else {
         return false;
       }

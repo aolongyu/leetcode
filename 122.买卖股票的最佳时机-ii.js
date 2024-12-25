@@ -10,29 +10,14 @@
  * @return {number}
  */
 var maxProfit = function (prices) {
-  /**
-   * 动态规划
-   */
-  // let handle = [-prices[0], 0];
-  // // console.log(JSON.stringify(handle));
-  // for (let i = 1; i < prices.length; i++) {
-  //   handle = [
-  //     Math.max(handle[0], handle[1] - prices[i]),
-  //     Math.max(handle[1], handle[0] + prices[i]),
-  //   ];
-  //   // console.log(JSON.stringify(handle));
-  // }
-  // return handle[1];
-
-  /**
-   * 贪心算法
-   * 吃涨避跌
-   */
-  let maxProfit = 0;
+  let profit = 0;
   for (let i = 1; i < prices.length; i++) {
-    maxProfit = Math.max(maxProfit, maxProfit + prices[i] - prices[i - 1]);
+    let cur = prices[i] - prices[i - 1];
+    if (cur > 0) {
+      profit += cur;
+    }
   }
-  return maxProfit;
+  return profit;
 };
 // @lc code=end
 

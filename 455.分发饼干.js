@@ -13,14 +13,15 @@
 var findContentChildren = function (g, s) {
   g.sort((a, b) => a - b);
   s.sort((a, b) => a - b);
-  let res = 0;
   let gi = 0;
   let si = 0;
-  while (gi <= g.length && si <= s.length) {
+  let res = 0;
+  while (gi < g.length && si < s.length) {
     if (g[gi] <= s[si]) {
       res++;
       gi++;
     }
+    // 不够这个小孩吃，那查看下一块饼干
     si++;
   }
   return res;

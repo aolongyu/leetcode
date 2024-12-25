@@ -12,8 +12,7 @@
 var canJump = function (nums) {
   let cover = 0;
   for (let i = 0; i <= cover; i++) {
-    let cur = nums[i];
-    cover = Math.max(cover, cur + i);
+    cover = Math.max(cover, nums[i] + i);
     if (cover >= nums.length - 1) {
       return true;
     }

@@ -17,8 +17,29 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var minCameraCover = function(root) {
-    
+var minCameraCover = function (root) {
+  const NONE = 0;
+  const COVER = 1;
+  const CAMERA = 2;
+  let res = 0;
+  const mount = (node) => {
+    if (!node) {
+      return COVER;
+    }
+    let left = mount(node.left);
+    let right = mount(node.right);
+    if (left === NONE || right === NONE) {
+      res++;
+      return CAMERA;
+    }
+    if (left === CAMERA || right === CAMERA) {
+      return COVER;
+    }
+    return NONE;
+  };
+  if (mount(root) === NONE) {
+    res++;
+  }
+  return res;
 };
 // @lc code=end
-

@@ -15,7 +15,7 @@ var jump = function (nums) {
   let farIndex = 0;
   for (let i = 0; i < nums.length - 1; i++) {
     farIndex = Math.max(farIndex, nums[i] + i);
-    if (i === curIndex) {
+    if (curIndex === i) {
       step++;
       curIndex = farIndex;
     }
@@ -25,9 +25,6 @@ var jump = function (nums) {
 // @lc code=end
 
 // 2
-// length: 15
-//  7  1  11 9 13 11  7_14 17  9 11 13 21 13 17
-//  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14
 console.log(jump([7, 0, 9, 6, 9, 6, 1, 7, 9, 0, 1, 2, 9, 0, 3]));
 console.log(jump([2, 3, 1, 1, 4]));
 console.log(jump([1, 2]));

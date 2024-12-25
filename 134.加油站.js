@@ -11,20 +11,20 @@
  * @return {number}
  */
 var canCompleteCircuit = function (gas, cost) {
-  let len = gas.length;
   let start = 0;
-  let curSum = 0;
-  let totalSum = 0;
+  let curr = 0;
+  let total = 0;
+  let len = gas.length;
   for (let i = 0; i < len; i++) {
     let fit = gas[i] - cost[i];
-    curSum += fit;
-    totalSum += fit;
-    while (curSum < 0) {
-      curSum = 0;
+    curr += fit;
+    total += fit;
+    if (curr < 0) {
       start = i + 1;
+      curr = 0;
     }
   }
-  return totalSum < 0 ? -1 : start;
+  return total < 0 ? -1 : start;
 };
 // @lc code=end
 
