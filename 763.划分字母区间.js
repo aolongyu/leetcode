@@ -10,19 +10,18 @@
  * @return {number[]}
  */
 var partitionLabels = function (s) {
-  let map = {};
+  let maxIndexes = {};
   for (let i = 0; i < s.length; i++) {
-    map[s[i]] = i;
+    maxIndexes[s[i]] = i;
   }
   let res = [];
-  let pre = -1;
-  let max = 0;
+  let prevSliceStart = -1;
+  let currMaxIndex = 0;
   for (let i = 0; i < s.length; i++) {
-    let char = s[i];
-    max = Math.max(max, map[char]);
-    if (i === map[char] && max === i) {
-      res.push(i - pre);
-      pre = i;
+    currMaxIndex = Math.max(currMaxIndex, maxIndexes[s[i]]);
+    if (currMaxIndex === i) {
+      res.push(i - prevSliceStart);
+      prevSliceStart = i;
     }
   }
   return res;

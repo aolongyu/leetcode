@@ -10,19 +10,19 @@
  * @return {number}
  */
 var monotoneIncreasingDigits = function (n) {
-  let arr = `${n}`.split("").map(Number);
-  let len = arr.length;
-  let startNine = len;
-  for (let i = len - 1; i > 0; i--) {
-    if (arr[i] < arr[i - 1]) {
-      startNine = i;
-      arr[i - 1]--;
+  let nArr = String(n).split("").map(Number);
+  let startFix = nArr.length;
+  for (let i = nArr.length - 2; i >= 0; i--) {
+    if (nArr[i] > nArr[i + 1]) {
+      startFix = i + 1;
+      nArr[i]--;
     }
   }
-  for (let i = startNine; i < len; i++) {
-    arr[i] = 9;
+  while (startFix < nArr.length) {
+    nArr[startFix] = 9;
+    startFix++;
   }
-  return Number(arr.join(""));
+  return Number(nArr.join(""));
 };
 // @lc code=end
 

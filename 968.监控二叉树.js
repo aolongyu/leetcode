@@ -21,7 +21,7 @@ var minCameraCover = function (root) {
   const NONE = 0;
   const COVER = 1;
   const CAMERA = 2;
-  let res = 0;
+  let count = 0;
   const mount = (node) => {
     if (!node) {
       return COVER;
@@ -29,7 +29,7 @@ var minCameraCover = function (root) {
     let left = mount(node.left);
     let right = mount(node.right);
     if (left === NONE || right === NONE) {
-      res++;
+      count++;
       return CAMERA;
     }
     if (left === CAMERA || right === CAMERA) {
@@ -38,8 +38,8 @@ var minCameraCover = function (root) {
     return NONE;
   };
   if (mount(root) === NONE) {
-    res++;
+    count++;
   }
-  return res;
+  return count;
 };
 // @lc code=end
