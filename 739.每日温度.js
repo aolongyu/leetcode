@@ -10,25 +10,32 @@
  * @return {number[]}
  */
 var dailyTemperatures = function (temperatures) {
+  // 单调栈（减）
   let dailies = Array(temperatures.length).fill(0);
   let stack = [0];
   for (let i = 1; i < temperatures.length; i++) {
-    let curr = temperatures[i];
-    while (stack.length) {
-      let topIndex = stack.pop();
-      let top = temperatures[topIndex];
-      if (top >= curr) {
-        stack.push(topIndex, i);
-        break;
+    let curIndex = i;
+    let cur = temperatures[curIndex];
+    let topIndex = stack[stack.length - 1];
+    let top = temperatures[topIndex];
+    if (top >= cur) {
+      stack.push(curIndex);
+    } else {
+      while (stack.length) {
+        topIndex = stack[stack.length - 1];
+        top = temperatures[topIndex];
+        if (top >= cur) {
+          break;
+        }
+        dailies[topIndex] = curIndex - topIndex;
+        stack.pop();
       }
-      dailies[topIndex] = i - topIndex;
+      stack.push(curIndex);
     }
-    stack.push(i);
   }
   return dailies;
 };
 // @lc code=end
-
 console.log(
   JSON.stringify(dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]))
 );

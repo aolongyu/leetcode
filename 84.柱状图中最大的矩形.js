@@ -37,9 +37,12 @@ var largestRectangleArea = function (heights) {
           break;
         }
         let leftIndex = stack[stack.length - 1];
-        let h = mid;
-        let w = rightIndex - leftIndex - 1;
-        maxArea = Math.max(maxArea, w * h);
+        let left = heights[leftIndex];
+        if (left < mid) {
+          let h = mid;
+          let w = rightIndex - leftIndex - 1;
+          maxArea = Math.max(maxArea, h * w);
+        }
       }
       stack.push(rightIndex);
     }

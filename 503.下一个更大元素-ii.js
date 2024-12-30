@@ -10,30 +10,31 @@
  * @return {number[]}
  */
 var nextGreaterElements = function (nums) {
-  let baseLength = nums.length;
-  nums.push(...nums);
-  // console.log(nums);
-  let map = {};
+  // 单调栈（减）
+  let length = nums.length;
+  let res = Array(length).fill(-1);
   let stack = [0];
-  for (let i = 1; i < nums.length; i++) {
-    let cur = nums[i];
-    while (stack.length) {
-      let topIndex = stack.pop();
-      let top = nums[topIndex];
-      if (top >= cur) {
-        stack.push(topIndex, i);
-        break;
+  for (let i = 1; i < length * 2; i++) {
+    let curIndex = i % length;
+    let cur = nums[curIndex];
+    let topIndex = stack[stack.length - 1];
+    let top = nums[topIndex];
+    if (top >= cur) {
+      stack.push(curIndex);
+    } else {
+      while (stack.length) {
+        let topIndex = stack[stack.length - 1];
+        let top = nums[topIndex];
+        if (top >= cur) {
+          break;
+        }
+        res[topIndex] = cur;
+        stack.pop();
       }
-      map[`${top}_${topIndex}`] = cur;
+      stack.push(curIndex);
     }
-    stack.push(i);
   }
-  // console.log(JSON.stringify(map));
-  let nexts = [];
-  for (let i = 0; i < baseLength; i++) {
-    nexts.push(map[`${nums[i]}_${i}`] ?? -1);
-  }
-  return nexts;
+  return res;
 };
 // @lc code=end
 
