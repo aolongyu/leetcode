@@ -10,30 +10,17 @@
  * @return {number}
  */
 var fib = function (n) {
-  /**
-   * 动态规划
-   * dp[i] = 数列的第i为数值
-   * 状态转移方程
-   *         dp[i] = dp[i - 1] + dp[i - 1]
-   * 初始化 dp[0] = 0 dp[1] = 1
-   * 遍历顺序 i 2~n
-   * 数据模拟 4
-   *         0 1 2 3 4
-   *         0 1 1 2 3
-   */
-
-  // 一维数组 空间O(n) 时间O(n)
-  // let dp = Array(n);
-  // dp[0] = 0;
-  // dp[1] = 1;
+  // if (n < 2) {
+  //   return n;
+  // }
+  // let dp = [0, 1];
   // for (let i = 2; i <= n; i++) {
   //   dp[i] = dp[i - 1] + dp[i - 2];
   // }
-  // // console.log(JSON.stringify(dp));
-  // return dp[n];
+  // return dp.pop();
 
-  // 数组压缩 空间O(1) 时间O(n)
-  if (n <= 1) {
+  // 数组压缩
+  if (n < 2) {
     return n;
   }
   let a = 0;

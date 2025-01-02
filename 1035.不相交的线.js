@@ -11,38 +11,20 @@
  * @return {number}
  */
 var maxUncrossedLines = function (nums1, nums2) {
-  /**
-   * 不相交，指的是最长公共子序列
-   *
-   * 动态规划
-   * dp[i][j]  0~i-1的nums1和0～j-1的nums2的最长公共子序列
-   * 状态转移方程
-   *         nums1[i - 1] === nums2[j - 1]
-   *         ? dp[i][j] = dp[i - 1][j - 1] + 1
-   *         : dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1])
-   * 初始化 all 0
-   * 数据模拟 [1, 4, 2], [1, 2, 4]
-   *         0 0 0 0
-   *         0 1 1 1
-   *         0 1 1 2
-   *         0 1 2 2
-   */
-
-  let dp = Array.from({ length: nums1.length + 1 }, () =>
-    Array(nums2.length + 1).fill(0)
-  );
-  // console.log(0, JSON.stringify(dp[0]));
-  for (let i = 1; i <= nums1.length; i++) {
-    for (let j = 1; j <= nums2.length; j++) {
+  let n1 = nums1.length;
+  let n2 = nums2.length;
+  let dp = Array.from({ length: n1 + 1 }, () => Array(n2 + 1).fill(0));
+  for (let i = 1; i <= n1; i++) {
+    for (let j = 1; j <= n2; j++) {
       if (nums1[i - 1] === nums2[j - 1]) {
         dp[i][j] = dp[i - 1][j - 1] + 1;
       } else {
         dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
       }
     }
-    // console.log(i, JSON.stringify(dp[i]));
+    // console.log(JSON.stringify(dp[i]));
   }
-  return dp.pop().pop();
+  return dp[n1][n2];
 };
 // @lc code=end
 

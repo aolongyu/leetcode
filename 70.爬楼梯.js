@@ -10,37 +10,27 @@
  * @return {number}
  */
 var climbStairs = function (n) {
-  let m = 2;
-  /**
-   * 动态规划
-   * dp[j] 0~i步数任选，到达j台阶有dp[j]种方法
-   * 状态转移方程
-   *         j < i
-   *         ? dp[j]
-   *         : dp[j] + dp[j - i]
-   * 初始化 all 0 & dp[0] = 1
-   * 遍历顺序 j:0~n i:1~m
-   * 数据模拟 2 5
-   *           - 0 1 2 3 4 5
-   *         - 1 1 1 1 2 3 5
-   *         - 2 1 1 2 3 5 8
-   */
+  // [1,2,3,5,8,13,21,...]
 
-  let dp = Array(n + 1).fill(0);
-  dp[0] = 1;
-  for (let j = 0; j <= n; j++) {
-    for (let i = 1; i <= m; i++) {
-      if (j < i) {
-        continue;
-      }
-      let r = j - i;
-      dp[j] += dp[r];
-    }
+  // if (n < 2) {
+  //   return n
+  // }
+  // let dp = [1, 2];
+  // for (let i = 2; i < n; i++) {
+  //   dp[i] = dp[i - 1] + dp[i - 2];
+  // }
+  // return dp.pop();
+
+  // 数组压缩
+  if (n < 2) {
+    return n;
   }
-
-  // debug
-  // console.log(JSON.stringify(dp));
-  return dp.pop();
+  let a = 1;
+  let b = 2;
+  for (let i = 2; i < n; i++) {
+    [a, b] = [b, a + b];
+  }
+  return b;
 };
 // @lc code=end
 
