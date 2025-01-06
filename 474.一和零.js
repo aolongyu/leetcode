@@ -12,27 +12,27 @@
  * @return {number}
  */
 var findMaxForm = function (strs, m, n) {
+  // 物品 strs
+  // 背包 1背包 & 0背包
+  // 不可重复使用 01背包
   let dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
   for (let str of strs) {
-    let zeroCount = 0;
-    let oneCount = 0;
+    let zero = 0;
+    let one = 0;
     for (let i = 0; i < str.length; i++) {
       if (str[i] === "0") {
-        zeroCount++;
+        zero++;
       } else {
-        oneCount++;
+        one++;
       }
     }
-
-    for (let i = m; i >= zeroCount; i--) {
-      for (let j = n; j >= oneCount; j--) {
-        dp[i][j] = Math.max(dp[i][j], dp[i - zeroCount][j - oneCount] + 1);
+    for (let i = m; i >= zero; i--) {
+      for (let j = n; j >= one; j--) {
+        dp[i][j] = Math.max(dp[i][j], dp[i - zero][j - one] + 1);
       }
     }
   }
-  // debug
-  // console.log(JSON.stringify(dp));
-  return dp.pop().pop();
+  return dp[m][n];
 };
 // @lc code=end
 
