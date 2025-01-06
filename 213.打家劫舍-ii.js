@@ -10,29 +10,21 @@
  * @return {number}
  */
 var rob = function (nums) {
-  if (nums.length <= 2) {
-    return Math.max(nums[0] || 0, nums[1] || 0);
+  if (nums.length <= 1) {
+    return Math.max(...nums);
   }
-
+  let _rob = (nums) => {
+    let a = nums[0];
+    let b = 0;
+    for (let i = 1; i < nums.length; i++) {
+      [a, b] = [Math.max(a, b + nums[i]), a];
+    }
+    return a;
+  };
   return Math.max(
-    robRange(nums.slice(0, nums.length - 1)),
-    robRange(nums.slice(1, nums.length))
+    _rob(nums.slice(0, nums.length - 1)),
+    _rob(nums.slice(1, nums.length))
   );
-};
-
-const robRange = (nums) => {
-  if (nums.length <= 2) {
-    return Math.max(nums[0], nums[1] || 0);
-  }
-
-  let a = nums[0];
-  let b = Math.max(nums[0], nums[1] || 0);
-
-  for (let i = 2; i < nums.length; i++) {
-    [a, b] = [b, Math.max(b, a + nums[i])];
-  }
-
-  return b;
 };
 
 // @lc code=end
