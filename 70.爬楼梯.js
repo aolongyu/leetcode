@@ -10,24 +10,13 @@
  * @return {number}
  */
 var climbStairs = function (n) {
-  // [1,2,3,5,8,13,21,...]
-
-  // if (n < 2) {
-  //   return n
-  // }
-  // let dp = [1, 2];
-  // for (let i = 2; i < n; i++) {
-  //   dp[i] = dp[i - 1] + dp[i - 2];
-  // }
-  // return dp.pop();
-
-  // 数组压缩
-  if (n < 2) {
+  // 1 2 3 5 8
+  if (n <= 1) {
     return n;
   }
   let a = 1;
   let b = 2;
-  for (let i = 2; i < n; i++) {
+  for (let i = 3; i <= n; i++) {
     [a, b] = [b, a + b];
   }
   return b;

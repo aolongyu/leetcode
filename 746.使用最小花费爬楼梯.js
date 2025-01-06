@@ -10,16 +10,20 @@
  * @return {number}
  */
 var minCostClimbingStairs = function (cost) {
-  let stairs = cost.length;
-  if (stairs <= 1) {
-    return cost[0] || 0;
+  // let dp = Array(cost.length).fill(0);
+  // dp[0] = cost[0];
+  // dp[1] = cost[1];
+  // for (let i = 2; i < cost.length; i++) {
+  //   dp[i] = Math.min(dp[i - 1], dp[i - 2]) + cost[i];
+  // }
+  // return Math.min(dp.pop(), dp.pop());
+
+  let a = cost[0];
+  let b = cost[1];
+  for (let i = 2; i < cost.length; i++) {
+    [a, b] = [b, Math.min(a, b) + cost[i]];
   }
-  let dp = [cost[0], cost[1]];
-  for (let i = 2; i < stairs; i++) {
-    dp[i] = Math.min(dp[i - 1], dp[i - 2]) + cost[i];
-  }
-  // console.log(JSON.stringify(dp));
-  return Math.min(dp[stairs - 1], dp[stairs - 2]);
+  return Math.min(a, b);
 };
 // @lc code=end
 
