@@ -18,7 +18,7 @@
  * @return {number}
  */
 var rob = function (root) {
-  const _rob = (node) => {
+  let _rob = (node) => {
     if (!node) {
       return [0, 0];
     }
@@ -27,8 +27,8 @@ var rob = function (root) {
     return [
       node.val + left[1] + right[1],
       Math.max(...left) + Math.max(...right),
-    ]
-  }
+    ];
+  };
   return Math.max(..._rob(root));
 };
 // @lc code=end

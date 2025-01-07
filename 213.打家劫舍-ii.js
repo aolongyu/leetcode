@@ -10,16 +10,18 @@
  * @return {number}
  */
 var rob = function (nums) {
-  if (nums.length <= 1) {
-    return Math.max(...nums);
+  if (nums.length === 0) {
+    return 0;
   }
-  let _rob = (nums) => {
-    let a = nums[0];
-    let b = 0;
+  if (nums.length === 1) {
+    return nums[0];
+  }
+  const _rob = (nums) => {
+    let handle = [nums[0], 0];
     for (let i = 1; i < nums.length; i++) {
-      [a, b] = [Math.max(a, b + nums[i]), a];
+      handle = [nums[i] + handle[1], Math.max(...handle)];
     }
-    return a;
+    return Math.max(...handle);
   };
   return Math.max(
     _rob(nums.slice(0, nums.length - 1)),

@@ -10,13 +10,14 @@
  * @return {number}
  */
 var numSquares = function (n) {
-  // 物品重量 1 4 9 ...
-  // 装满n空间，需要的最少
+  // 物品 1 2 4 9 16 ...
+  // 背包 n
+  // 可重复使用
   let dp = Array(n + 1).fill(Infinity);
   dp[0] = 0;
   for (let i = 1; true; i++) {
     let ii = i * i;
-    if (ii > n) {
+    if (n < ii) {
       break;
     }
     for (let j = 1; j <= n; j++) {

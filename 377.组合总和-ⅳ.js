@@ -11,20 +11,17 @@
  * @return {number}
  */
 var combinationSum4 = function (nums, target) {
-  // 物品 nums
+  // 物品 nums 可重复使用
   // 背包 target
-  // 在乎顺序 - 排列
-  // 可以多次使用物品 完全背包
-  // dp[j] nums组成和为j的情况有dp[j]种
+  // 在乎顺序 排列
   let dp = Array(target + 1).fill(0);
   dp[0] = 1;
   for (let j = 1; j <= target; j++) {
     for (let i = 0; i < nums.length; i++) {
-      let num = nums[i];
-      if (num > j) {
+      if (j < nums[i]) {
         continue;
       }
-      dp[j] += dp[j - num];
+      dp[j] += dp[j - nums[i]];
     }
   }
   return dp[target];

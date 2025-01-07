@@ -11,10 +11,11 @@
  */
 var rob = function (nums) {
   let handle = [nums[0], 0];
-  for (let i = 1; i < nums.length; i++) {
-    handle = [Math.max(handle[0], handle[1] + nums[i]), handle[0]];
+  let n = nums.length;
+  for (let i = 1; i < n; i++) {
+    handle = [nums[i] + handle[1], Math.max(handle[0], handle[1])];
   }
-  return handle[0];
+  return Math.max(handle[0], handle[1]);
 };
 // @lc code=end
 

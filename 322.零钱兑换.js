@@ -11,17 +11,14 @@
  * @return {number}
  */
 var coinChange = function (coins, amount) {
-  // 物品 coins
+  // 物品 coins 可重复使用
   // 背包 amount
   let dp = Array(amount + 1).fill(Infinity);
   dp[0] = 0;
   for (let i = 0; i < coins.length; i++) {
     let coin = coins[i];
-    if (coin > amount) {
-      continue;
-    }
     for (let j = 1; j <= amount; j++) {
-      if (coin > j) {
+      if (j < coin) {
         continue;
       }
       dp[j] = Math.min(dp[j], dp[j - coin] + 1);
