@@ -19,21 +19,14 @@
 var swapPairs = function (head) {
   let prevHead = new ListNode(0, head);
   let prevNode = prevHead;
-  while (head) {
-    let node1 = head;
-    let node2 = head.next;
-    if (!node2) {
-      break;
-    }
-    let nextNode = node2.next;
-    prevNode.next = node2;
-    node2.next = node1;
-    node1.next = nextNode;
-
-    head = nextNode;
-    prevNode = node1;
+  while (prevNode && prevNode.next && prevNode.next.next) {
+    let a = prevNode.next;
+    let b = prevNode.next.next;
+    a.next = b.next;
+    b.next = a;
+    prevNode.next = b;
+    prevNode = prevNode.next.next;
   }
-
   return prevHead.next;
 };
 // @lc code=end

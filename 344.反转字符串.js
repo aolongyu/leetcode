@@ -17,7 +17,7 @@ var reverseString = function (s) {
     head++;
     tail--;
   }
-  // return s;
+  return s;
 };
 // @lc code=end
 

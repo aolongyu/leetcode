@@ -14,10 +14,12 @@ var fourSum = function (nums, target) {
   nums.sort((a, b) => a - b);
   let res = [];
   for (let i = 0; i < nums.length - 3; i++) {
+    // 第一个数字去重
     if (i > 0 && nums[i] === nums[i - 1]) {
       continue;
     }
     for (let j = i + 1; j < nums.length - 2; j++) {
+      // 第二个数字去重
       if (j > i + 1 && nums[j] === nums[j - 1]) {
         continue;
       }
@@ -27,21 +29,21 @@ var fourSum = function (nums, target) {
         let sum = nums[i] + nums[j] + nums[l] + nums[r];
         if (sum < target) {
           l++;
-          continue;
-        }
-        if (sum > target) {
+        } else if (sum > target) {
           r--;
-          continue;
-        }
-        res.push([nums[i], nums[j], nums[l], nums[r]]);
-        while (l < r && nums[l] === nums[l + 1]) {
+        } else {
+          res.push([nums[i], nums[j], nums[l], nums[r]]);
+          // 第三个数字去重
+          while (l < r && nums[l] === nums[l + 1]) {
+            l++;
+          }
+          // 第四个数字去重
+          while (l < r && nums[r] === nums[r - 1]) {
+            r--;
+          }
           l++;
-        }
-        while (l < r && nums[r] === nums[r - 1]) {
           r--;
         }
-        l++;
-        r--;
       }
     }
   }
@@ -51,5 +53,4 @@ var fourSum = function (nums, target) {
 
 console.log(JSON.stringify(fourSum([1, 0, -1, 0, -2, 2], 0)));
 console.log(JSON.stringify(fourSum([2, 2, 2, 2, 2], 8)));
-//[[-3,-2,2,3],[-3,-1,1,3],[-3,0,0,3],[-3,0,1,2],[-2,-1,0,3],[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
 console.log(JSON.stringify(fourSum([-3, -2, -1, 0, 0, 1, 2, 3], 0)));

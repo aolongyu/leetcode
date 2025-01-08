@@ -18,10 +18,10 @@ var reverseWords = function (s) {
     l++;
     r++;
   }
-
   while (r < s.length) {
     if (s[r] === " ") {
-      arr.unshift(s.slice(l, r));
+      arr.push(s.slice(l, r));
+      r++;
       while (s[r] === " ") {
         r++;
       }
@@ -29,7 +29,7 @@ var reverseWords = function (s) {
     }
     r++;
   }
-  return arr.join(" ");
+  return arr.reverse().join(" ");
 };
 // @lc code=end
 
