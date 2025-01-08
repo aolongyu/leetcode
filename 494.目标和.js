@@ -11,7 +11,7 @@
  * @return {number}
  */
 var findTargetSumWays = function (nums, target) {
-  // x - (sum - x) - target
+  // x - (sum - x) = target
   // x = (sum + target) / 2
   let sum = nums.reduce((a, b) => a + b, 0);
   if (sum < Math.abs(target)) {
@@ -24,12 +24,11 @@ var findTargetSumWays = function (nums, target) {
   let dp = Array(bagweight + 1).fill(0);
   dp[0] = 1;
   for (let i = 0; i < nums.length; i++) {
-    let num = nums[i];
     for (let j = bagweight; j >= 0; j--) {
-      if (j < num) {
-        break;
+      if (j < nums[i]) {
+        continue;
       }
-      dp[j] += dp[j - num];
+      dp[j] += dp[j - nums[i]];
     }
   }
   return dp[bagweight];

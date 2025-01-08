@@ -14,19 +14,14 @@ var change = function (amount, coins) {
   // 物品 coins
   // 背包 amount
   // 不在乎顺序 组合
-  // 不限使用次数 完全背包
   let dp = Array(amount + 1).fill(0);
   dp[0] = 1;
   for (let i = 0; i < coins.length; i++) {
-    let coin = coins[i];
-    if (coin > amount) {
-      continue;
-    }
     for (let j = 1; j <= amount; j++) {
-      if (coin > j) {
+      if (j < coins[i]) {
         continue;
       }
-      dp[j] += dp[j - coin];
+      dp[j] += dp[j - coins[i]];
     }
   }
   return dp[amount];

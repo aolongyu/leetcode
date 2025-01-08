@@ -18,7 +18,7 @@
  * @return {number}
  */
 var rob = function (root) {
-  let _rob = (node) => {
+  const _rob = (node) => {
     if (!node) {
       return [0, 0];
     }

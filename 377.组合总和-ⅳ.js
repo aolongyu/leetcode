@@ -11,8 +11,8 @@
  * @return {number}
  */
 var combinationSum4 = function (nums, target) {
-  // 物品 nums 可重复使用
   // 背包 target
+  // 物品 nums 可重复使用
   // 在乎顺序 排列
   let dp = Array(target + 1).fill(0);
   dp[0] = 1;

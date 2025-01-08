@@ -10,20 +10,20 @@
  * @return {boolean}
  */
 var canPartition = function (nums) {
-  // 核心思想，数字分为两个部分，两个部分和相等
+  // 物品 nums 不可重复使用
+  // 背包 sum / 2
   let sum = nums.reduce((a, b) => a + b, 0);
   let bagweight = sum / 2;
-  if (Math.floor(bagweight) !== bagweight) {
+  if (bagweight !== Math.floor(bagweight)) {
     return false;
   }
   let dp = Array(bagweight + 1).fill(0);
   for (let i = 0; i < nums.length; i++) {
-    let num = nums[i];
     for (let j = bagweight; j >= 0; j--) {
-      if (j < num) {
+      if (j < nums[i]) {
         break;
       }
-      dp[j] = Math.max(dp[j], dp[j - num] + num);
+      dp[j] = Math.max(dp[j], dp[j - nums[i]] + nums[i]);
     }
   }
   return dp[bagweight] === bagweight;

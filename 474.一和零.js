@@ -12,9 +12,8 @@
  * @return {number}
  */
 var findMaxForm = function (strs, m, n) {
-  // 物品 strs
-  // 背包 1背包 & 0背包
-  // 不可重复使用 01背包
+  // 物品 strs 不可重复使用
+  // 双背包 0背包m 1背包n
   let dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
   for (let str of strs) {
     let zero = 0;

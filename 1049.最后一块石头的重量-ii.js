@@ -10,17 +10,17 @@
  * @return {number}
  */
 var lastStoneWeightII = function (stones) {
-  // 核心思想，石头分为两堆，两堆的差最小，这个差值就是剩余石头重量
+  // 核心思想：石头分为两堆 使两堆石头重量差距最小
+  // 最小差值即为剩余石头重量
   let sum = stones.reduce((a, b) => a + b, 0);
   let bagweight = Math.floor(sum / 2);
   let dp = Array(bagweight + 1).fill(0);
   for (let i = 0; i < stones.length; i++) {
-    let stone = stones[i];
     for (let j = bagweight; j >= 0; j--) {
-      if (j < stone) {
+      if (j < stones[i]) {
         break;
       }
-      dp[j] = Math.max(dp[j], dp[j - stone] + stone);
+      dp[j] = Math.max(dp[j], dp[j - stones[i]] + stones[i]);
     }
   }
   return sum - 2 * dp[bagweight];

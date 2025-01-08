@@ -10,15 +10,15 @@
  * @return {number}
  */
 var numTrees = function (n) {
-  // 核心思想
-  // 三个节点时有三种情况：左节点2+右节点0、左节点1+右节点1、左节点0+右节点2
+  // 核心思想：减掉根元素，左子树和右子树分配剩余节点
+  // 3个节点的情况：左0右2 左1右1 左2右0
   let dp = Array(n + 1).fill(0);
   dp[0] = 1;
   dp[1] = 1;
   dp[2] = 2;
   for (let i = 3; i <= n; i++) {
-    for (let j = i - 1; j >= 0; j--) {
-      dp[i] += dp[j] * dp[i - 1 - j];
+    for (let j = 0; j < i; j++) {
+      dp[i] += dp[j] * dp[i - j - 1];
     }
   }
   return dp[n];
