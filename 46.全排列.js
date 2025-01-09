@@ -13,16 +13,12 @@ var permute = function (nums) {
   let res = [];
   let path = [];
   const backtracking = (nums) => {
-    if (path.length === nums.length) {
+    if (nums.length === 0) {
       res.push([...path]);
-      return;
     }
     for (let i = 0; i < nums.length; i++) {
-      if (path.includes(nums[i])) {
-        continue;
-      }
       path.push(nums[i]);
-      backtracking(nums);
+      backtracking([...nums.slice(0, i), ...nums.slice(i + 1)]);
       path.pop();
     }
   };

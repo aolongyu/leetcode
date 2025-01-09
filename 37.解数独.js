@@ -5,25 +5,25 @@
  */
 
 // @lc code=start
-const isValid = (board, row, col, val) => {
-  // 同行不能相同数字
-  for (let j = 0; j < board[row].length; j++) {
-    if (board[row][j] === val) {
+const isValid = (board, row, col, target) => {
+  // 同行
+  for (let j = 0; j < 9; j++) {
+    if (board[row][j] === target) {
       return false;
     }
   }
-  // 同列不能相同数字
-  for (let i = 0; i < board.length; i++) {
-    if (board[i][col] === val) {
+  // 同列
+  for (let i = 0; i < 9; i++) {
+    if (board[i][col] === target) {
       return false;
     }
   }
-  // 同块不能相同数字
-  let startRowIndex = Math.floor(row / 3) * 3;
-  let startColIndex = Math.floor(col / 3) * 3;
-  for (let i = startRowIndex; i < startRowIndex + 3; i++) {
-    for (let j = startColIndex; j < startColIndex + 3; j++) {
-      if (board[i][j] === val) {
+  // 同九宫格
+  let startRow = Math.floor(row / 3) * 3;
+  let startCol = Math.floor(col / 3) * 3;
+  for (let i = startRow; i < startRow + 3; i++) {
+    for (let j = startCol; j < startCol + 3; j++) {
+      if (board[i][j] === target) {
         return false;
       }
     }
@@ -36,8 +36,8 @@ const isValid = (board, row, col, val) => {
  */
 var solveSudoku = function (board) {
   const backtracking = () => {
-    for (let i = 0; i < board.length; i++) {
-      for (let j = 0; j < board[i].length; j++) {
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
         if (board[i][j] !== ".") {
           continue;
         }

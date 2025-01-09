@@ -6,30 +6,38 @@
 
 // @lc code=start
 const canAttach = (matrix, row, col) => {
-  let i;
-  let j;
-  // 同行
-  for (i = row, j = 0; j < matrix[i].length; j++) {
-    if (j !== col && matrix[i][j] === "Q") {
+  let i, j;
+  j = 0;
+  while (j < matrix[row].length) {
+    if (matrix[row][j] === "Q") {
       return true;
     }
+    j++;
   }
-  // 同列
-  for (i = 0, j = col; i < matrix.length; i++) {
-    if (i !== row && matrix[i][j] === "Q") {
+  i = 0;
+  while (i < matrix.length) {
+    if (matrix[i][col] === "Q") {
       return true;
     }
+    i++;
   }
-  // 同斜线（只关注row、col的左上角和右上角，因为左下角、右下角一定都为.）
-  for (i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+  i = row - 1;
+  j = col - 1;
+  while (i >= 0 && j >= 0) {
     if (matrix[i][j] === "Q") {
       return true;
     }
+    i--;
+    j--;
   }
-  for (i = row - 1, j = col + 1; i >= 0 && j < matrix[i].length; i--, j++) {
+  i = row - 1;
+  j = col + 1;
+  while (i >= 0 && j < matrix[i].length) {
     if (matrix[i][j] === "Q") {
       return true;
     }
+    i--;
+    j++;
   }
   return false;
 };
@@ -40,25 +48,28 @@ const canAttach = (matrix, row, col) => {
 var solveNQueens = function (n) {
   let res = [];
   let path = [];
-  let matrix = Array.from({ length: n }).map(() => Array(n).fill("."));
-  const backtracking = (matrix, row) => {
+  let matrix = Array.from({ length: n }, () => Array(n).fill("."));
+  const backtracking = (row) => {
     if (path.length === matrix.length) {
       res.push([...path]);
       return;
     }
     for (let i = row; i < matrix.length; i++) {
       for (let j = 0; j < matrix[i].length; j++) {
-        matrix[i][j] = "Q";
+        if (matrix[i][j] !== ".") {
+          continue;
+        }
         if (!canAttach(matrix, i, j)) {
+          matrix[i][j] = "Q";
           path.push(matrix[i].join(""));
-          backtracking(matrix, i + 1);
+          backtracking(i + 1);
+          matrix[i][j] = ".";
           path.pop();
         }
-        matrix[i][j] = ".";
       }
     }
   };
-  backtracking(matrix, 0);
+  backtracking(0);
   return res;
 };
 // @lc code=end

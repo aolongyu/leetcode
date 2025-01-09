@@ -12,28 +12,22 @@
 var findSubsequences = function (nums) {
   let res = [];
   let path = [];
-  const backtracking = (nums, preNum) => {
+  const backtracking = (nums, startIndex, prevValue) => {
     if (path.length >= 2) {
       res.push([...path]);
     }
-    let used = [];
-    for (let i = 0; i < nums.length; i++) {
-      if (preNum > nums[i]) {
+    let layerUsed = {};
+    for (let i = startIndex; i < nums.length; i++) {
+      if (nums[i] < prevValue || layerUsed[nums[i]]) {
         continue;
       }
-      if (i > 0 && nums[i - 1] === nums[i]) {
-        continue;
-      }
-      if (used[nums[i]]) {
-        continue;
-      }
-      used[nums[i]] = true;
+      layerUsed[nums[i]] = true;
       path.push(nums[i]);
-      backtracking(nums.slice(i + 1), nums[i]);
+      backtracking(nums, i + 1, nums[i]);
       path.pop();
     }
   };
-  backtracking(nums, -Infinity);
+  backtracking(nums, 0, -Infinity);
   return res;
 };
 // @lc code=end

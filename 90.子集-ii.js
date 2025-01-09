@@ -19,7 +19,7 @@ var subsetsWithDup = function (nums) {
       return;
     }
     for (let i = 0; i < nums.length; i++) {
-      if (i > 0 && nums[i - 1] === nums[i]) {
+      if (i > 0 && nums[i] === nums[i - 1]) {
         continue;
       }
       path.push(nums[i]);
