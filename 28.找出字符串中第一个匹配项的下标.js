@@ -11,7 +11,7 @@
  * @return {number}
  */
 var strStr = function (haystack, needle) {
-  let getNext = (needle) => {
+  const getNext = (needle) => {
     let next = [];
     let j = 0;
     next.push(j);
@@ -40,7 +40,6 @@ var strStr = function (haystack, needle) {
       return i - j + 1;
     }
   }
-
   return -1;
 };
 // @lc code=end
