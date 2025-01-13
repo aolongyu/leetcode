@@ -13,22 +13,18 @@
 var combine = function (n, k) {
   let res = [];
   let path = [];
-  const backtracking = (n, k, startIndex) => {
-    if (path.length === k) {
+  const backtracking = (k, start) => {
+    if (k === 0) {
       res.push([...path]);
       return;
     }
-    for (let i = startIndex; i <= n; i++) {
-      // 剪枝
-      if (k - path.length > n - i + 1) {
-        return;
-      }
+    for (let i = start; i <= n; i++) {
       path.push(i);
-      backtracking(n, k, i + 1);
+      backtracking(k - 1, i + 1);
       path.pop();
     }
   };
-  backtracking(n, k, 1);
+  backtracking(k, 1);
   return res;
 };
 // @lc code=end

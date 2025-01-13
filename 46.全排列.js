@@ -15,6 +15,7 @@ var permute = function (nums) {
   const backtracking = (nums) => {
     if (nums.length === 0) {
       res.push([...path]);
+      return;
     }
     for (let i = 0; i < nums.length; i++) {
       path.push(nums[i]);

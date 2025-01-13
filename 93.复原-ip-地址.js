@@ -5,22 +5,15 @@
  */
 
 // @lc code=start
-const isOverMax = (s) => {
-  const num = Number(s);
-  if (num > 255) {
-    return true;
-  }
-  return false;
-};
-const isEffNum = (s) => {
-  if (s === "") {
+const isValid = (str) => {
+  if (str.length === 0 || str.length > 3) {
     return false;
   }
-  if (s.length > 1 && s[0] === "0") {
+  if (str[0] === "0" && str.length > 1) {
     return false;
   }
-  const num = Number(s);
-  if (num < 0 || isOverMax(num)) {
+  let num = +str;
+  if (num < 0 || num > 255) {
     return false;
   }
   return true;
@@ -32,30 +25,24 @@ const isEffNum = (s) => {
 var restoreIpAddresses = function (s) {
   let res = [];
   let path = [];
-  const backtracking = (s) => {
-    if (path.length > 4) {
-      return;
-    }
-    if (s.length === 0) {
-      if (path.length === 4) {
+  const backtracking = (startIndex) => {
+    if (path.length === 4) {
+      if (startIndex === s.length) {
         res.push(path.join("."));
       }
       return;
     }
-    for (let i = 0; i < s.length; i++) {
-      let curr = s.slice(0, i + 1);
-      if (isEffNum(curr)) {
-        path.push(curr);
-        let next = s.slice(i + 1);
-        backtracking(next);
-        path.pop();
+    for (let i = startIndex; i < s.length; i++) {
+      let str = s.slice(startIndex, i + 1);
+      if (!isValid(str)) {
+        continue;
       }
-      else if (isOverMax(curr)) {
-        break;
-      }
+      path.push(+str);
+      backtracking(i + 1);
+      path.pop();
     }
   };
-  backtracking(s);
+  backtracking(0);
   return res;
 };
 // @lc code=end

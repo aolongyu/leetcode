@@ -13,22 +13,20 @@
 var combinationSum = function (candidates, target) {
   let res = [];
   let path = [];
-  const backtracking = (candidates, target, sum, startIndex) => {
-    // 剪枝
-    if (sum > target) {
-      return;
-    }
-    if (sum === target) {
-      res.push([...path]);
+  const backtracking = (startIndex, target) => {
+    if (target <= 0) {
+      if (target === 0) {
+        res.push([...path]);
+      }
       return;
     }
     for (let i = startIndex; i < candidates.length; i++) {
       path.push(candidates[i]);
-      backtracking(candidates, target, sum + candidates[i], i);
+      backtracking(i, target - candidates[i]);
       path.pop();
     }
   };
-  backtracking(candidates, target, 0, 0);
+  backtracking(0, target);
   return res;
 };
 // @lc code=end
