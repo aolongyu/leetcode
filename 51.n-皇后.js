@@ -5,26 +5,32 @@
  */
 
 // @lc code=start
-const canAttach = (matrix, row, col) => {
-  let i, j;
+const canAttach = (board, row, col) => {
+  let i;
+  let j;
+  // 同行
+  i = row;
   j = 0;
-  while (j < matrix[row].length) {
-    if (matrix[row][j] === "Q") {
+  while (j < board[i].length) {
+    if (board[i][j] === "Q") {
       return true;
     }
     j++;
   }
+  // 同列
   i = 0;
-  while (i < matrix.length) {
-    if (matrix[i][col] === "Q") {
+  j = col;
+  while (i < board.length) {
+    if (board[i][j] === "Q") {
       return true;
     }
     i++;
   }
+  // 同斜线
   i = row - 1;
   j = col - 1;
   while (i >= 0 && j >= 0) {
-    if (matrix[i][j] === "Q") {
+    if (board[i][j] === "Q") {
       return true;
     }
     i--;
@@ -32,8 +38,8 @@ const canAttach = (matrix, row, col) => {
   }
   i = row - 1;
   j = col + 1;
-  while (i >= 0 && j < matrix[i].length) {
-    if (matrix[i][j] === "Q") {
+  while (i >= 0 && j < board[i].length) {
+    if (board[i][j] === "Q") {
       return true;
     }
     i--;
@@ -46,25 +52,23 @@ const canAttach = (matrix, row, col) => {
  * @return {string[][]}
  */
 var solveNQueens = function (n) {
+  // N皇后 同行、同列、同斜线 只能有一个
   let res = [];
   let path = [];
-  let matrix = Array.from({ length: n }, () => Array(n).fill("."));
+  let board = Array.from({ length: n }, () => Array(n).fill("."));
   const backtracking = (row) => {
-    if (path.length === matrix.length) {
+    if (path.length === board.length) {
       res.push([...path]);
       return;
     }
-    for (let i = row; i < matrix.length; i++) {
-      for (let j = 0; j < matrix[i].length; j++) {
-        if (matrix[i][j] !== ".") {
-          continue;
-        }
-        if (!canAttach(matrix, i, j)) {
-          matrix[i][j] = "Q";
-          path.push(matrix[i].join(""));
+    for (let i = row; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+        if (!canAttach(board, i, j)) {
+          board[i][j] = "Q";
+          path.push(board[i].join(""));
           backtracking(i + 1);
-          matrix[i][j] = ".";
           path.pop();
+          board[i][j] = ".";
         }
       }
     }

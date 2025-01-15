@@ -6,13 +6,13 @@
 
 // @lc code=start
 const isValid = (str) => {
-  if (str.length === 0 || str.length > 3) {
+  if (str === "0") {
+    return true;
+  }
+  if (str[0] === "0") {
     return false;
   }
-  if (str[0] === "0" && str.length > 1) {
-    return false;
-  }
-  let num = +str;
+  let num = parseInt(str);
   if (num < 0 || num > 255) {
     return false;
   }
@@ -25,24 +25,24 @@ const isValid = (str) => {
 var restoreIpAddresses = function (s) {
   let res = [];
   let path = [];
-  const backtracking = (startIndex) => {
-    if (path.length === 4) {
-      if (startIndex === s.length) {
+  const backTracking = (start) => {
+    if (path.length === 4 || start === s.length) {
+      if (path.length === 4 && start === s.length) {
         res.push(path.join("."));
       }
       return;
     }
-    for (let i = startIndex; i < s.length; i++) {
-      let str = s.slice(startIndex, i + 1);
+    for (let i = start; i < s.length; i++) {
+      let str = s.slice(start, i + 1);
       if (!isValid(str)) {
         continue;
       }
-      path.push(+str);
-      backtracking(i + 1);
+      path.push(str);
+      backTracking(i + 1);
       path.pop();
     }
   };
-  backtracking(0);
+  backTracking(0);
   return res;
 };
 // @lc code=end

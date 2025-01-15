@@ -13,20 +13,20 @@
 var combinationSum = function (candidates, target) {
   let res = [];
   let path = [];
-  const backtracking = (startIndex, target) => {
+  const backTracking = (start, target) => {
     if (target <= 0) {
       if (target === 0) {
         res.push([...path]);
       }
       return;
     }
-    for (let i = startIndex; i < candidates.length; i++) {
+    for (let i = start; i < candidates.length; i++) {
       path.push(candidates[i]);
-      backtracking(i, target - candidates[i]);
+      backTracking(i, target - candidates[i]);
       path.pop();
     }
   };
-  backtracking(0, target);
+  backTracking(0, target);
   return res;
 };
 // @lc code=end

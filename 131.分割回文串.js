@@ -6,14 +6,14 @@
 
 // @lc code=start
 const isValid = (str) => {
-  let l = 0;
-  let r = str.length - 1;
-  while (l < r) {
-    if (str[l] !== str[r]) {
+  let i = 0;
+  let j = str.length - 1;
+  while (i < j) {
+    if (str[i] !== str[j]) {
       return false;
     }
-    l++;
-    r--;
+    i++;
+    j--;
   }
   return true;
 };
@@ -24,21 +24,22 @@ const isValid = (str) => {
 var partition = function (s) {
   let res = [];
   let path = [];
-  const backtracking = (startIndex) => {
-    if (startIndex === s.length) {
+  const backTracking = (start) => {
+    if (start === s.length) {
       res.push([...path]);
       return;
     }
-    for (let i = startIndex; i < s.length; i++) {
-      let str = s.slice(startIndex, i + 1);
-      if (isValid(str)) {
-        path.push(str);
-        backtracking(i + 1);
-        path.pop();
+    for (let i = start; i < s.length; i++) {
+      let str = s.slice(start, i + 1);
+      if (!isValid(str)) {
+        continue;
       }
+      path.push(str);
+      backTracking(i + 1);
+      path.pop();
     }
   };
-  backtracking(0);
+  backTracking(0);
   return res;
 };
 // @lc code=end

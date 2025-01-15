@@ -5,28 +5,41 @@
  */
 
 // @lc code=start
-const isValid = (board, row, col, target) => {
+const isValid = (board, row, col, str) => {
+  let i;
+  let j;
   // 同行
-  for (let j = 0; j < 9; j++) {
-    if (board[row][j] === target) {
+  i = row;
+  j = 0;
+  while (j < 9) {
+    if (board[i][j] === str) {
       return false;
     }
+    j++;
   }
   // 同列
-  for (let i = 0; i < 9; i++) {
-    if (board[i][col] === target) {
+  i = 0;
+  j = col;
+  while (i < 9) {
+    if (board[i][j] === str) {
       return false;
     }
+    i++;
   }
   // 同九宫格
   let startRow = Math.floor(row / 3) * 3;
   let startCol = Math.floor(col / 3) * 3;
-  for (let i = startRow; i < startRow + 3; i++) {
-    for (let j = startCol; j < startCol + 3; j++) {
-      if (board[i][j] === target) {
+  i = startRow;
+  j = startCol;
+  while (i < startRow + 3) {
+    while (j < startCol + 3) {
+      if (board[i][j] === str) {
         return false;
       }
+      j++;
     }
+    j = startCol;
+    i++;
   }
   return true;
 };
@@ -36,8 +49,8 @@ const isValid = (board, row, col, target) => {
  */
 var solveSudoku = function (board) {
   const backtracking = () => {
-    for (let i = 0; i < 9; i++) {
-      for (let j = 0; j < 9; j++) {
+    for (let i = 0; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
         if (board[i][j] !== ".") {
           continue;
         }
@@ -55,7 +68,7 @@ var solveSudoku = function (board) {
     }
     return true;
   };
-  backtracking();
+  backtracking(0, 0);
   return board;
 };
 // @lc code=end
