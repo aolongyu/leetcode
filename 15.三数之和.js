@@ -13,31 +13,30 @@ var threeSum = function (nums) {
   nums.sort((a, b) => a - b);
   let res = [];
   for (let i = 0; i < nums.length - 2; i++) {
-    // 第一个数字去重
     if (i > 0 && nums[i] === nums[i - 1]) {
       continue;
     }
-    let l = i + 1;
-    let r = nums.length - 1;
-    while (l < r) {
-      let sum = nums[i] + nums[l] + nums[r];
+    let j = i + 1;
+    let k = nums.length - 1;
+    while (j < k) {
+      let sum = nums[i] + nums[j] + nums[k];
       if (sum < 0) {
-        l++;
-      } else if (sum > 0) {
-        r--;
-      } else {
-        res.push([nums[i], nums[l], nums[r]]);
-        // 第二个数字去重
-        while (l < r && nums[l] === nums[l + 1]) {
-          l++;
-        }
-        // 第三个数字去重
-        while (l < r && nums[r] === nums[r + 1]) {
-          r++;
-        }
-        l++;
-        r--;
+        j++;
+        continue;
       }
+      if (sum > 0) {
+        k--;
+        continue;
+      }
+      res.push([nums[i], nums[j], nums[k]]);
+      while (j < k && nums[j] === nums[j + 1]) {
+        j++;
+      }
+      while (j < k && nums[k] === nums[k - 1]) {
+        k--;
+      }
+      j++;
+      k--;
     }
   }
   return res;

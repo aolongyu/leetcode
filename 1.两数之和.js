@@ -12,7 +12,7 @@
  */
 var twoSum = function (nums, target) {
   let map = {};
-  for (let i = 0; i < nums.length; i++) {
+  for (let i = 0, l = nums.length; i < l; i++) {
     let diff = target - nums[i];
     if (map[diff] !== undefined) {
       return [map[diff], i];

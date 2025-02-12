@@ -14,35 +14,31 @@ var fourSum = function (nums, target) {
   nums.sort((a, b) => a - b);
   let res = [];
   for (let i = 0; i < nums.length - 3; i++) {
-    // 第一个数字去重
     if (i > 0 && nums[i] === nums[i - 1]) {
       continue;
     }
     for (let j = i + 1; j < nums.length - 2; j++) {
-      // 第二个数字去重
       if (j > i + 1 && nums[j] === nums[j - 1]) {
         continue;
       }
-      let l = j + 1;
-      let r = nums.length - 1;
-      while (l < r) {
-        let sum = nums[i] + nums[j] + nums[l] + nums[r];
+      let k = j + 1;
+      let l = nums.length - 1;
+      while (k < l) {
+        let sum = nums[i] + nums[j] + nums[k] + nums[l];
         if (sum < target) {
-          l++;
+          k++;
         } else if (sum > target) {
-          r--;
+          l--;
         } else {
-          res.push([nums[i], nums[j], nums[l], nums[r]]);
-          // 第三个数字去重
-          while (l < r && nums[l] === nums[l + 1]) {
-            l++;
+          res.push([nums[i], nums[j], nums[k], nums[l]]);
+          while (k < l && nums[k] === nums[k + 1]) {
+            k++;
           }
-          // 第四个数字去重
-          while (l < r && nums[r] === nums[r - 1]) {
-            r--;
+          while (k < l && nums[l] === nums[l - 1]) {
+            l--;
           }
-          l++;
-          r--;
+          k++;
+          l--;
         }
       }
     }
