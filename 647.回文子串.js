@@ -10,24 +10,25 @@
  * @return {number}
  */
 var countSubstrings = function (s) {
-  let len = s.length;
-  if (len <= 1) {
-    return len;
+  let n = s.length;
+  let count = n;
+  let dp = Array.from({ length: n }, () => Array(n).fill(false));
+  for (let i = 0; i < n; i++) {
+    dp[i][i] = true;
   }
-  let count = 0;
-  let dp = Array.from({ length: len }, () => Array(len).fill(false));
-  for (let i = len - 1; i >= 0; i--) {
-    for (let j = i; j < len; j++) {
+  for (let i = n - 2; i >= 0; i--) {
+    for (let j = i + 1; j < n; j++) {
       if (s[i] === s[j]) {
-        if (j - i <= 1) {
+        if (j - i === 1) {
           dp[i][j] = true;
         } else {
           dp[i][j] = dp[i + 1][j - 1];
         }
-        count += dp[i][j] ? 1 : 0;
+      }
+      if (dp[i][j]) {
+        count++;
       }
     }
-    // console.log(JSON.stringify(dp[i]));
   }
   return count;
 };

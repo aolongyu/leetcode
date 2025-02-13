@@ -11,7 +11,7 @@
  * @return {boolean}
  */
 var isSubsequence = function (s, t) {
-  // 删t
+  // dp
   // let n1 = s.length;
   // let n2 = t.length;
   // let dp = Array.from({ length: n1 + 1 }, () => Array(n2 + 1).fill(false));
@@ -28,7 +28,7 @@ var isSubsequence = function (s, t) {
   //   }
   // }
   // return dp[n1][n2];
-
+  // double index
   let p = 0;
   for (let i = 0; i < t.length; i++) {
     if (s[p] === t[i]) {
@@ -38,6 +38,7 @@ var isSubsequence = function (s, t) {
   return p === s.length;
 };
 // @lc code=end
+// false
 console.log(isSubsequence("a", "b"));
 // false
 console.log(isSubsequence("ace", "abde"));

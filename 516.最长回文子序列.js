@@ -10,28 +10,21 @@
  * @return {number}
  */
 var longestPalindromeSubseq = function (s) {
-  let len = s.length;
-  if (len <= 1) {
-    return len;
-  }
-  let dp = Array.from({ length: len }, () => Array(len).fill(0));
-  // console.log(JSON.stringify(dp));
-  for (let i = 0; i < len; i++) {
+  let n = s.length;
+  let dp = Array.from({ length: n }, () => Array(n).fill(0));
+  for (let i = 0; i < n; i++) {
     dp[i][i] = 1;
   }
-  for (let i = len - 1; i >= 0; i--) {
-    for (let j = i + 1; j < len; j++) {
+  for (let i = n - 2; i >= 0; i--) {
+    for (let j = i + 1; j < n; j++) {
       if (s[i] === s[j]) {
         dp[i][j] = dp[i + 1][j - 1] + 2;
       } else {
-        dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
+        dp[i][j] = Math.max(dp[i][j - 1], dp[i + 1][j]);
       }
     }
   }
-  // for (let i = 0; i < dp.length; i++) {
-  //   console.log(JSON.stringify(dp[i]));
-  // }
-  return dp[0][len - 1];
+  return dp[0][n - 1];
 };
 // @lc code=end
 

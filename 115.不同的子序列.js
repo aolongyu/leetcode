@@ -11,7 +11,6 @@
  * @return {number}
  */
 var numDistinct = function (s, t) {
-  // 删s
   let n1 = s.length;
   let n2 = t.length;
   let dp = Array.from({ length: n1 + 1 }, () => Array(n2 + 1).fill(0));
@@ -27,9 +26,6 @@ var numDistinct = function (s, t) {
       }
     }
   }
-  // for (let i = 0; i < dp.length; i++) {
-  //   console.log(JSON.stringify(dp[i]));
-  // }
   return dp[n1][n2];
 };
 // @lc code=end
