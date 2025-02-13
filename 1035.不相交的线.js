@@ -11,6 +11,7 @@
  * @return {number}
  */
 var maxUncrossedLines = function (nums1, nums2) {
+  // 最长公共子序列
   let n1 = nums1.length;
   let n2 = nums2.length;
   let dp = Array.from({ length: n1 + 1 }, () => Array(n2 + 1).fill(0));
@@ -22,7 +23,6 @@ var maxUncrossedLines = function (nums1, nums2) {
         dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
       }
     }
-    // console.log(JSON.stringify(dp[i]));
   }
   return dp[n1][n2];
 };

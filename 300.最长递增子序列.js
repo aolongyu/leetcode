@@ -10,15 +10,18 @@
  * @return {number}
  */
 var lengthOfLIS = function (nums) {
-  let dp = Array(nums.length).fill(1);
-  for (let i = 1; i < nums.length; i++) {
-    for (let j = i - 1; j >= 0; j--) {
+  // Updated: 2025/02/13 13:45:00
+  let n = nums.length;
+  let dp = Array(n).fill(1);
+  for (let i = 1; i < n; i++) {
+    let j = i - 1;
+    while (j >= 0) {
       if (nums[i] > nums[j]) {
         dp[i] = Math.max(dp[i], dp[j] + 1);
       }
+      j--;
     }
   }
-  // console.log(JSON.stringify(dp));
   return Math.max(...dp);
 };
 // @lc code=end
