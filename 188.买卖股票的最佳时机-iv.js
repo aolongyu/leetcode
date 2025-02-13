@@ -11,21 +11,16 @@
  * @return {number}
  */
 var maxProfit = function (k, prices) {
-  let handle = Array(2 * k).fill(0);
-  for (let i = 0; i < handle.length; i++) {
-    if (i % 2 === 0) {
-      handle[i] = -prices[0];
-    }
+  handle = Array(2 * k).fill(0);
+  for (let i = 0; i < handle.length; i += 2) {
+    handle[i] = -prices[0];
   }
-  // console.log(JSON.stringify(handle));
   for (let i = 1; i < prices.length; i++) {
     for (let j = 0; j < 2 * k; j += 2) {
       handle[j] = Math.max(handle[j], (handle[j - 1] || 0) - prices[i]);
       handle[j + 1] = Math.max(handle[j + 1], handle[j] + prices[i]);
     }
-    // console.log(JSON.stringify(handle));
   }
-
   return handle.pop();
 };
 // @lc code=end

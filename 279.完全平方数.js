@@ -10,27 +10,14 @@
  * @return {number}
  */
 var numSquares = function (n) {
-  /**
-   * 动态规划
-   * dp[j] 0~i中任选 的平方和为j值，所需要的最少个数为dp[j]
-   * 状态转移方程
-   *         j < nums[ii]
-   *         ? dp[j]
-   *         : Math.min(dp[j], dp[j - nums[ii]] + 1)
-   * 初始化 all 0
-   * 遍历方式 i:1~break j:1~n
-   * 数据模拟 8
-   *           - 0 1 2 3 4 5 6 7 8
-   *         - 1 0 1 2 3 4 5 6 7 8
-   *         - 4 0 1 2 3 1 2 3 4 2
-   *         - 9 break
-   */
-
+  // 物品 1 2 4 9 16 ...
+  // 背包 n
+  // 可重复使用
   let dp = Array(n + 1).fill(Infinity);
   dp[0] = 0;
   for (let i = 1; true; i++) {
     let ii = i * i;
-    if (ii > n) {
+    if (n < ii) {
       break;
     }
     for (let j = 1; j <= n; j++) {
@@ -39,10 +26,8 @@ var numSquares = function (n) {
       }
       dp[j] = Math.min(dp[j], dp[j - ii] + 1);
     }
-    // debug
-    // console.log(i, JSON.stringify(dp));
   }
-  return dp.pop();
+  return dp[n];
 };
 // @lc code=end
 

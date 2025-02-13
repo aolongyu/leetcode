@@ -5,28 +5,41 @@
  */
 
 // @lc code=start
-const isValid = (board, row, col, val) => {
-  // 同行不能相同数字
-  for (let j = 0; j < board[row].length; j++) {
-    if (board[row][j] === val) {
+const isValid = (board, row, col, str) => {
+  let i;
+  let j;
+  // 同行
+  i = row;
+  j = 0;
+  while (j < 9) {
+    if (board[i][j] === str) {
       return false;
     }
+    j++;
   }
-  // 同列不能相同数字
-  for (let i = 0; i < board.length; i++) {
-    if (board[i][col] === val) {
+  // 同列
+  i = 0;
+  j = col;
+  while (i < 9) {
+    if (board[i][j] === str) {
       return false;
     }
+    i++;
   }
-  // 同块不能相同数字
-  let startRowIndex = Math.floor(row / 3) * 3;
-  let startColIndex = Math.floor(col / 3) * 3;
-  for (let i = startRowIndex; i < startRowIndex + 3; i++) {
-    for (let j = startColIndex; j < startColIndex + 3; j++) {
-      if (board[i][j] === val) {
+  // 同九宫格
+  let startRow = Math.floor(row / 3) * 3;
+  let startCol = Math.floor(col / 3) * 3;
+  i = startRow;
+  j = startCol;
+  while (i < startRow + 3) {
+    while (j < startCol + 3) {
+      if (board[i][j] === str) {
         return false;
       }
+      j++;
     }
+    j = startCol;
+    i++;
   }
   return true;
 };
@@ -55,7 +68,7 @@ var solveSudoku = function (board) {
     }
     return true;
   };
-  backtracking();
+  backtracking(0, 0);
   return board;
 };
 // @lc code=end

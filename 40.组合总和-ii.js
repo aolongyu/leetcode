@@ -14,25 +14,23 @@ var combinationSum2 = function (candidates, target) {
   candidates.sort((a, b) => a - b);
   let res = [];
   let path = [];
-  const backtracking = (candidates, target, sum, startIndex) => {
-    // 剪枝
-    if (sum > target) {
+  const backTracking = (start, target) => {
+    if (target <= 0) {
+      if (target === 0) {
+        res.push([...path]);
+      }
       return;
     }
-    if (sum === target) {
-      res.push([...path]);
-      return;
-    }
-    for (let i = startIndex; i < candidates.length; i++) {
-      if (i > startIndex && candidates[i] === candidates[i - 1]) {
+    for (let i = start; i < candidates.length; i++) {
+      if (i > start && candidates[i] === candidates[i - 1]) {
         continue;
       }
       path.push(candidates[i]);
-      backtracking(candidates, target, sum + candidates[i], i + 1);
+      backTracking(i + 1, target - candidates[i]);
       path.pop();
     }
   };
-  backtracking(candidates, target, 0, 0);
+  backTracking(0, target);
   return res;
 };
 // @lc code=end

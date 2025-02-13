@@ -10,34 +10,25 @@
  * @return {boolean}
  */
 var repeatedSubstringPattern = function (s) {
-  const getNext = (str) => {
-    let next = [];
-    let j = 0;
-    next.push(j);
-    for (let i = 1; i < str.length; i++) {
-      while (j > 0 && str[i] !== str[j]) {
-        j = next[j - 1];
-      }
-      if (str[i] === str[j]) {
-        j++;
-      }
-      next.push(j);
+  let next = [];
+  let j = 0;
+  next.push(j);
+  let len = s.length;
+  for (let i = 1; i < len; i++) {
+    while (j > 0 && s[i] !== s[j]) {
+      j = next[j - 1];
     }
-    return next;
-  };
-
-  let next = getNext(s);
-  console.log(next)
-  if (
-    next[next.length - 1] !== 0 &&
-    s.length % (s.length - next[next.length - 1]) === 0
-  ) {
-    return true;
+    if (s[i] === s[j]) {
+      j++;
+    }
+    next.push(j);
   }
-  return false;
+
+  let tail = next[len - 1];
+  return tail !== 0 && tail % (len - tail) === 0;
 };
 // @lc code=end
 
-console.log(repeatedSubstringPattern("abab"));
-console.log(repeatedSubstringPattern("aba"));
+console.log(repeatedSubstringPattern("a"));
+console.log(repeatedSubstringPattern("abac"));
 console.log(repeatedSubstringPattern("abcabcabcabc"));

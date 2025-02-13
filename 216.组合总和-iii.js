@@ -13,24 +13,26 @@
 var combinationSum3 = function (k, n) {
   let res = [];
   let path = [];
-  const backtracking = (k, n, startIndex, sum) => {
-    if (path.length === k) {
-      if (sum === n) {
+  const backtracking = (k, n, start) => {
+    if (n < 0) {
+      return;
+    }
+    if (k === 0) {
+      if (n === 0) {
         res.push([...path]);
       }
       return;
     }
-    for (let i = startIndex; i <= 9; i++) {
-      // 减枝
-      if (k - path.length > n - i + 1 || sum + i > n) {
-        return;
-      }
+    for (let i = start; i <= 9; i++) {
       path.push(i);
-      backtracking(k, n, i + 1, sum + i);
+      backtracking(k - 1, n - i, i + 1);
       path.pop();
     }
   };
-  backtracking(k, n, 1, 0);
+  backtracking(k, n, 1);
   return res;
 };
 // @lc code=end
+
+console.log(JSON.stringify(combinationSum3(3, 7)));
+console.log(JSON.stringify(combinationSum3(3, 9)));

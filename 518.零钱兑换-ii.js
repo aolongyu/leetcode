@@ -11,33 +11,20 @@
  * @return {number}
  */
 var change = function (amount, coins) {
-  /**
-   * 动态规划
-   * dp[j] 0～i的coins中，兑换满j元，有dp[j]中方法
-   * 状态转移方程
-   *         j < coins[i]
-   *         ? dp[j]
-   *         : dp[j] + dp[j - coins[i]]
-   * 初始化 all 0 & dp[0] = 1
-   * 遍历顺序 i:0~coins.length-1 j:0~amount
-   * 数据模拟 5, [1, 2, 5]
-   *           - 0 1 2 3 4 5
-   *         - 1 1 1 1 1 1 1
-   *         - 2 1 1 2 2 3 3
-   *         - 5 1 1 2 2 3 4
-   */
-
+  // 物品 coins
+  // 背包 amount
+  // 不在乎顺序 组合
   let dp = Array(amount + 1).fill(0);
   dp[0] = 1;
   for (let i = 0; i < coins.length; i++) {
-    for (let j = coins[i]; j <= amount; j++) {
-      let r = j - coins[i];
-      dp[j] += dp[r];
+    for (let j = 1; j <= amount; j++) {
+      if (j < coins[i]) {
+        continue;
+      }
+      dp[j] += dp[j - coins[i]];
     }
-    // debug
-    // console.log(i, JSON.stringify(dp));
   }
-  return dp.pop();
+  return dp[amount];
 };
 // @lc code=end
 

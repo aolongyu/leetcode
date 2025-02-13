@@ -18,21 +18,18 @@
  * @return {number}
  */
 var rob = function (root) {
-  const robTree = (node) => {
+  const _rob = (node) => {
     if (!node) {
       return [0, 0];
     }
-
-    let left = robTree(node.left);
-    let right = robTree(node.right);
-
+    let left = _rob(node.left);
+    let right = _rob(node.right);
     return [
       node.val + left[1] + right[1],
       Math.max(...left) + Math.max(...right),
     ];
   };
-
-  return robTree(root);
+  return Math.max(..._rob(root));
 };
 // @lc code=end
 

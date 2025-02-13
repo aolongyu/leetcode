@@ -5,15 +5,15 @@
  */
 
 // @lc code=start
-const isPalindrome = (s) => {
-  let l = 0;
-  let r = s.length - 1;
-  while (l < r) {
-    if (s[l] !== s[r]) {
+const isValid = (str) => {
+  let i = 0;
+  let j = str.length - 1;
+  while (i < j) {
+    if (str[i] !== str[j]) {
       return false;
     }
-    l++;
-    r--;
+    i++;
+    j--;
   }
   return true;
 };
@@ -24,21 +24,22 @@ const isPalindrome = (s) => {
 var partition = function (s) {
   let res = [];
   let path = [];
-  const backtracking = (s) => {
-    if (s.length === 0) {
+  const backTracking = (start) => {
+    if (start === s.length) {
       res.push([...path]);
+      return;
     }
-    for (let i = 0; i < s.length; i++) {
-      let curr = s.slice(0, i + 1);
-      if (isPalindrome(curr)) {
-        path.push(curr);
-        let next = s.slice(i + 1);
-        backtracking(next);
-        path.pop();
+    for (let i = start; i < s.length; i++) {
+      let str = s.slice(start, i + 1);
+      if (!isValid(str)) {
+        continue;
       }
+      path.push(str);
+      backTracking(i + 1);
+      path.pop();
     }
   };
-  backtracking(s);
+  backTracking(0);
   return res;
 };
 // @lc code=end

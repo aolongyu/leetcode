@@ -29,7 +29,6 @@ var removeNthFromEnd = function (head, n) {
     fast = fast.next;
   }
   slow.next = slow.next.next;
-
   return prevHead.next;
 };
 // @lc code=end

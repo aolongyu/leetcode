@@ -12,19 +12,15 @@
 var subsets = function (nums) {
   let res = [];
   let path = [];
-  const backtracking = (nums) => {
+  const backTracking = (start) => {
     res.push([...path]);
-    if (nums.length === 0) {
-      return;
-    }
-    for (let i = 0; i < nums.length; i++) {
+    for (let i = start; i < nums.length; i++) {
       path.push(nums[i]);
-      let next = nums.slice(i + 1);
-      backtracking(next);
+      backTracking(i + 1);
       path.pop();
     }
   };
-  backtracking(nums);
+  backTracking(0);
   return res;
 };
 // @lc code=end

@@ -11,36 +11,20 @@
  * @return {number}
  */
 var combinationSum4 = function (nums, target) {
-  /**
-   * 动态规划
-   * dp[j] 0~i的nums任选 和为j的情况有dp[j]种
-   * 状态转移方程
-   *         j < nums[i]
-   *         ? dp[j]
-   *         : dp[j] + dp[j - nums[i]]
-   * 初始化 all 0 & dp[0] = 1
-   * 遍历顺序 j:0~target i:0~nums.length-1
-   * 数据模拟 [1, 2, 3], 4
-   *           - 0 1 2 3 4
-   *         - 1 1 1 1 2 4
-   *         - 2     2 3 6
-   *         - 3       4 7
-   */
-
+  // 背包 target
+  // 物品 nums 可重复使用
+  // 在乎顺序 排列
   let dp = Array(target + 1).fill(0);
   dp[0] = 1;
-  for (let j = 0; j <= target; j++) {
+  for (let j = 1; j <= target; j++) {
     for (let i = 0; i < nums.length; i++) {
       if (j < nums[i]) {
         continue;
       }
-      let r = j - nums[i];
-      dp[j] += dp[r];
+      dp[j] += dp[j - nums[i]];
     }
   }
-  // debug
-  // console.log(JSON.stringify(dp));
-  return dp.pop();
+  return dp[target];
 };
 // @lc code=end
 

@@ -18,21 +18,24 @@
  * @return {ListNode}
  */
 var detectCycle = function (head) {
-  // x = (n - 1)(y + z) + z
+  // 2 * (x + y) = x + y + n * (y + z)
+  // x = n * (y + z) - y
+  // x = (n - 1) * (y + z) + z
+  // n = 1 x === z
+  // n = 2 ...
   let slow = head;
   let fast = head;
   while (fast && fast.next) {
     slow = slow.next;
     fast = fast.next.next;
-
     if (slow === fast) {
-      let index1 = head;
-      let index2 = slow;
-      while (index1 !== index2) {
-        index1 = index1.next;
-        index2 = index2.next;
+      let p = head;
+      let q = slow;
+      while (p !== q) {
+        p = p.next;
+        q = q.next;
       }
-      return index1;
+      return p;
     }
   }
   return null;

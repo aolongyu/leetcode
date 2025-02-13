@@ -10,32 +10,39 @@
  * @return {number}
  */
 var maxProfit = function (prices) {
-  let dp = Array(prices.length)
-    .fill()
-    .map(() => Array(4).fill(0));
-  // 0持有
-  // 1卖出
-  // 2冷冻
-  // 3不持有（非冷冻）
-  dp[0] = [-prices[0], 0, 0, 0];
-  for (let i = 1; i < prices.length; i++) {
-    // 今天为持有 -前一天：持有、冷冻、不持有
-    dp[i][0] = Math.max(
-      dp[i - 1][0],
-      dp[i - 1][2] - prices[i],
-      dp[i - 1][3] - prices[i]
-    );
-    // 今天为卖出 -前一天：持有
-    dp[i][1] = dp[i - 1][0] + prices[i];
-    // 今天为冷冻 -前一天：卖出
-    dp[i][2] = dp[i - 1][1];
-    // 今天为不持有 -前一天：冷冻、不持有
-    dp[i][3] = Math.max(dp[i - 1][2], dp[i - 1][3]);
+  // 0 持有
+  // 1 买出
+  // 2 冷冻
+  // 3 未持有
+  // let n = prices.length;
+  // let dp = Array.from({ length: n }, () => Array(4).fill(0));
+  // dp[0][0] = -prices[0];
+  // for (let i = 1; i < n; i++) {
+  //   dp[i] = [
+  //     // 今天持有的前提：昨天 持有/未持有/冷冻
+  //     Math.max(dp[i - 1][0], Math.max(dp[i - 1][2], dp[i - 1][3]) - prices[i]),
+  //     // 今天买出的前提：昨天 持有
+  //     Math.max(dp[i - 1][1], dp[i - 1][0] + prices[i]),
+  //     // 今天冷冻的前提：昨天 买出
+  //     Math.max(dp[i - 1][2], dp[i - 1][1]),
+  //     // 今天未持有的前提：昨天 冷冻/未持有
+  //     Math.max(dp[i - 1][3], dp[i - 1][2]),
+  //   ]
+  // }
+  // return dp[n - 1][1];
 
-    // console.log(i, JSON.stringify(dp[i]));
+  // 数组压缩
+  let n = prices.length;
+  let handle = [-prices[0], 0, 0, 0];
+  for (let i = 1; i < n; i++) {
+    handle = [
+      Math.max(handle[0], Math.max(handle[2], handle[3]) - prices[i]),
+      Math.max(handle[1], handle[0] + prices[i]),
+      Math.max(handle[2], handle[1]),
+      Math.max(handle[3], handle[2]),
+    ];
   }
-
-  return Math.max(...dp.pop());
+  return handle[1];
 };
 // @lc code=end
 

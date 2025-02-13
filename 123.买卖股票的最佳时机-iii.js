@@ -18,9 +18,8 @@ var maxProfit = function (prices) {
       Math.max(handle[2], handle[1] - prices[i]),
       Math.max(handle[3], handle[2] + prices[i]),
     ];
-    // console.log(JSON.stringify(handle));
   }
-  return Math.max(...handle);
+  return handle[3];
 };
 // @lc code=end
 

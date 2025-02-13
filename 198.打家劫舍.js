@@ -10,24 +10,12 @@
  * @return {number}
  */
 var rob = function (nums) {
-  // let dp = Array(nums.length).fill(0);
-  // dp[0] = nums[0];
-  // dp[1] = Math.max(nums[0], nums[1]);
-
-  // for (let i = 2; i <= nums.length; i++) {
-  //   dp[i] = Math.max(dp[i - 1], dp[i - 2] + nums[i]);
-  // }
-  // console.log(JSON.stringify(dp));
-
-  // return dp[nums.length - 1];
-
-  let a = nums[0];
-  let b = Math.max(nums[0], nums[1]);
-  for (let i = 2; i < nums.length; i++) {
-    [a, b] = [b, Math.max(b, a + nums[i])];
+  let handle = [nums[0], 0];
+  let n = nums.length;
+  for (let i = 1; i < n; i++) {
+    handle = [nums[i] + handle[1], Math.max(handle[0], handle[1])];
   }
-
-  return b || a || 0;
+  return Math.max(handle[0], handle[1]);
 };
 // @lc code=end
 

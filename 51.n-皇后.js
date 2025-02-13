@@ -5,31 +5,45 @@
  */
 
 // @lc code=start
-const canAttach = (matrix, row, col) => {
+const canAttach = (board, row, col) => {
   let i;
   let j;
   // 同行
-  for (i = row, j = 0; j < matrix[i].length; j++) {
-    if (j !== col && matrix[i][j] === "Q") {
+  i = row;
+  j = 0;
+  while (j < board[i].length) {
+    if (board[i][j] === "Q") {
       return true;
     }
+    j++;
   }
   // 同列
-  for (i = 0, j = col; i < matrix.length; i++) {
-    if (i !== row && matrix[i][j] === "Q") {
+  i = 0;
+  j = col;
+  while (i < board.length) {
+    if (board[i][j] === "Q") {
       return true;
     }
+    i++;
   }
-  // 同斜线（只关注row、col的左上角和右上角，因为左下角、右下角一定都为.）
-  for (i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
-    if (matrix[i][j] === "Q") {
+  // 同斜线
+  i = row - 1;
+  j = col - 1;
+  while (i >= 0 && j >= 0) {
+    if (board[i][j] === "Q") {
       return true;
     }
+    i--;
+    j--;
   }
-  for (i = row - 1, j = col + 1; i >= 0 && j < matrix[i].length; i--, j++) {
-    if (matrix[i][j] === "Q") {
+  i = row - 1;
+  j = col + 1;
+  while (i >= 0 && j < board[i].length) {
+    if (board[i][j] === "Q") {
       return true;
     }
+    i--;
+    j++;
   }
   return false;
 };
@@ -38,27 +52,28 @@ const canAttach = (matrix, row, col) => {
  * @return {string[][]}
  */
 var solveNQueens = function (n) {
+  // N皇后 同行、同列、同斜线 只能有一个
   let res = [];
   let path = [];
-  let matrix = Array.from({ length: n }).map(() => Array(n).fill("."));
-  const backtracking = (matrix, row) => {
-    if (path.length === matrix.length) {
+  let board = Array.from({ length: n }, () => Array(n).fill("."));
+  const backtracking = (row) => {
+    if (path.length === board.length) {
       res.push([...path]);
       return;
     }
-    for (let i = row; i < matrix.length; i++) {
-      for (let j = 0; j < matrix[i].length; j++) {
-        matrix[i][j] = "Q";
-        if (!canAttach(matrix, i, j)) {
-          path.push(matrix[i].join(""));
-          backtracking(matrix, i + 1);
+    for (let i = row; i < board.length; i++) {
+      for (let j = 0; j < board[i].length; j++) {
+        if (!canAttach(board, i, j)) {
+          board[i][j] = "Q";
+          path.push(board[i].join(""));
+          backtracking(i + 1);
           path.pop();
+          board[i][j] = ".";
         }
-        matrix[i][j] = ".";
       }
     }
   };
-  backtracking(matrix, 0);
+  backtracking(0);
   return res;
 };
 // @lc code=end

@@ -13,25 +13,25 @@ var permuteUnique = function (nums) {
   let res = [];
   let path = [];
   let usedIndex = {};
-  const backtracking = (nums) => {
-    if (nums.length === path.length) {
+  const backTracking = () => {
+    if (path.length === nums.length) {
       res.push([...path]);
       return;
     }
-    let layerUsed = {};
+    let layerUsedNum = {};
     for (let i = 0; i < nums.length; i++) {
-      if (usedIndex[i] || layerUsed[nums[i]]) {
+      if (usedIndex[i] || layerUsedNum[nums[i]]) {
         continue;
       }
-      layerUsed[nums[i]] = true;
+      layerUsedNum[nums[i]] = true;
       usedIndex[i] = true;
       path.push(nums[i]);
-      backtracking(nums);
+      backTracking();
       path.pop();
       usedIndex[i] = false;
     }
   };
-  backtracking(nums);
+  backTracking();
   return res;
 };
 // @lc code=end

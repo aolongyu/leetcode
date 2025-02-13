@@ -13,21 +13,18 @@ var subsetsWithDup = function (nums) {
   nums.sort((a, b) => a - b);
   let res = [];
   let path = [];
-  const backtracking = (nums) => {
+  const backTracking = (start) => {
     res.push([...path]);
-    if (nums.length === 0) {
-      return;
-    }
-    for (let i = 0; i < nums.length; i++) {
-      if (i > 0 && nums[i - 1] === nums[i]) {
+    for (let i = start; i < nums.length; i++) {
+      if (i > start && nums[i] === nums[i - 1]) {
         continue;
       }
       path.push(nums[i]);
-      backtracking(nums.slice(i + 1));
+      backTracking(i + 1);
       path.pop();
     }
   };
-  backtracking(nums);
+  backTracking(0);
   return res;
 };
 // @lc code=end

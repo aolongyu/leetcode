@@ -12,21 +12,24 @@
 var permute = function (nums) {
   let res = [];
   let path = [];
-  const backtracking = (nums) => {
+  let usedIndex = [];
+  const backTracking = () => {
     if (path.length === nums.length) {
       res.push([...path]);
       return;
     }
     for (let i = 0; i < nums.length; i++) {
-      if (path.includes(nums[i])) {
+      if (usedIndex[i]) {
         continue;
       }
+      usedIndex[i] = true;
       path.push(nums[i]);
-      backtracking(nums);
+      backTracking();
       path.pop();
+      usedIndex[i] = false;
     }
   };
-  backtracking(nums);
+  backTracking();
   return res;
 };
 // @lc code=end
