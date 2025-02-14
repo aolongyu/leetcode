@@ -10,6 +10,7 @@
  * @return {number}
  */
 var maxProfit = function (prices) {
+  // Updated: 2025/02/14 14:51:37
   let handle = [-prices[0], 0, -prices[0], 0];
   for (let i = 1; i < prices.length; i++) {
     handle = [

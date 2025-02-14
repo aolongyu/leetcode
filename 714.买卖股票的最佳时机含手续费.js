@@ -11,14 +11,28 @@
  * @return {number}
  */
 var maxProfit = function (prices, fee) {
-  let handle = [-prices[0], 0];
-  for (let i = 1; i < prices.length; i++) {
-    handle = [
-      Math.max(handle[0], handle[1] - prices[i]),
-      Math.max(handle[1], handle[0] + prices[i] - fee),
+  // Updated: 2025/02/14 13:47:37
+  // let n = prices.length;
+  // let dp = [];
+  // dp[0] = [-prices[0], 0];
+  // for (let i = 1; i < n; i++) {
+  //   dp[i] = [
+  //     Math.max(dp[i - 1][0], dp[i - 1][1] - prices[i]),
+  //     Math.max(dp[i - 1][1], dp[i - 1][0] + prices[i] - fee),
+  //   ];
+  // }
+  // return dp[n - 1][1];
+
+  // 数组压缩
+  let n = prices.length;
+  let prev = [-prices[0], 0];
+  for (let i = 1; i < n; i++) {
+    prev = [
+      Math.max(prev[0], prev[1] - prices[i]),
+      Math.max(prev[1], prev[0] + prices[i] - fee),
     ];
   }
-  return handle[1];
+  return prev[1];
 };
 // @lc code=end
 
